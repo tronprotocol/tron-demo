@@ -1,0 +1,36 @@
+{
+  "name": "@tronprotocol/wallet-api",
+  "version": "0.0.37",
+  "description": "Tronprotocol Wallet API wrapper",
+  "main": "src/index.js",
+  "homepage": "https://tron.network/",
+  "scripts": {
+    "test": "mocha",
+    "protoc:install": "cd protocol && ./install-protobuf.sh",
+    "protoc:generate": "./protocol/protobuf-3.5.1/src/.libs/protoc --proto_path=protocol/protobuf-3.5.1/src --proto_path=protocol --grpc_out=./src/protocol --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` --js_out=import_style=commonjs,binary:src/protocol protocol/core/*.proto protocol/api/*.proto",
+    "test:watch": "mocha --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tronprotocol/node-wallet-api.git"
+  },
+  "keywords": [
+    "tron"
+  ],
+  "author": "Tron",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chai": "^4.1.2",
+    "crypto-js": "^3.1.9-1",
+    "elliptic": "^6.4.0",
+    "express": "^4.16.3",
+    "google-protobuf": "^3.5.0",
+    "grpc": "^1.10.0",
+    "grpc-caller": "^0.4.0",
+    "grpc-tools": "^1.6.6",
+    "js-sha3": "^0.7.0",
+    "mocha": "^5.1.0",
+    "qs": "^6.5.1"
+  }
+}
