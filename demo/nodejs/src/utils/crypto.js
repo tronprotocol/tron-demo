@@ -244,11 +244,31 @@ function pkToAddress(privateKey) {
   let com_addressBytes = getAddressFromPriKey(com_priKeyBytes);
   return getBase58CheckAddress(com_addressBytes);
 }
+function longToByteArray(long) {
+    // we want to represent the input as a 8-bytes array
+    var byteArray = [0, 0, 0, 0, 0, 0, 0, 0];
+
+    for ( var index = 0; index < byteArray.length; index ++ ) {
+        var byte = long & 0xff;
+        byteArray [ index ] = byte;
+        long = (long - byte) / 256 ;
+    }
+
+    return byteArray;
+}
 // 对交易的RawData 取hash
 function getHashByRawData(rawData){
     let rawBytes = rawData.serializeBinary();
     let hashBytes = SHA256(rawBytes);
     return hashBytes
+}
+//计算block id
+function generateBlockId(blockNum,blockHash){
+    let numBytes = longToByteArray(blockNum);
+    numBytes.reverse();
+    let hashBytes = hexStr2byteArray(blockHash);
+    let generate_BlockId = [...numBytes.slice(0, 8), ...hashBytes.slice(8, hashBytes.length - 1)];
+    return generate_BlockId;
 }
 
 
@@ -265,5 +285,6 @@ module.exports = {
   pkToAddress,
   decode58Check,
   signBytes,
-  getHashByRawData
+  getHashByRawData,
+  generateBlockId
 };
