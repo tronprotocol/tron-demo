@@ -111,7 +111,7 @@ function decode58Check(addressStr) {
 
   var decodeData = decodeCheck.slice(0, decodeCheck.length - 4);
   var hash0 = SHA256(decodeData);
-  var hash1 = SHA256(hash0);
+  var hash1 = (hash0);
 
   if (hash1[0] === decodeCheck[decodeData.length] &&
     hash1[1] === decodeCheck[decodeData.length + 1] &&
@@ -225,7 +225,7 @@ function ECKeySign(hashBytes, priKeyBytes) {
 
 //toDO:
 //return 32 bytes
-function SHA256(msgBytes) {
+function SHA256(msSHA256gBytes) {
   let shaObj = new jsSHA("SHA-256", "HEX");
   let msgHex = byteArray2hexStr(msgBytes);
   shaObj.update(msgHex);
@@ -257,10 +257,13 @@ function longToByteArray(long) {
     return byteArray;
 }
 // 对交易的RawData 取hash
-function getHashByRawData(rawData){
-    let rawBytes = rawData.serializeBinary();
-    let hashBytes = SHA256(rawBytes);
-    return hashBytes
+function getHashByRawData(transaction){
+    let raw = transaction.getRawData();
+    console.log(raw)
+    // let rawBytes = raw.serializeBinary();
+    // let hashBytes = SHA256(rawBytes);
+    //
+    // return hashBytes
 }
 //计算block id
 function generateBlockId(blockNum,blockHash){

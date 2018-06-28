@@ -1,5 +1,5 @@
 
-const {EmptyMessage, NumberMessage} = require("../protocol/api/api_pb");
+const {EmptyMessage, NumberMessage,BytesMessage} = require("../protocol/api/api_pb");
 const { TransferContract } = require("../protocol/core/Contract_pb");
 const PrivateKeySigner = require("../signer/privateKeySigner");
 const decode58Check = require("../utils/crypto").decode58Check;
@@ -39,6 +39,18 @@ class GrpcClient {
       .then(x => x.getNodesList());
   }
 
+    /**
+     * Retrieve all connected nodes
+     *
+     * @returns {Promise<*>}
+     */
+    async GetTransactionInfoById(id) {
+        let message = new BytesMessage();
+        //(Uint8Array.from(decode58Check(id)))
+        message.setValue(id);
+        console.log('number==',message)
+        return await this.api.getTransactionById(message);
+    }
   /**
    * Retrieves a block by the given number
    *
@@ -48,6 +60,7 @@ class GrpcClient {
   async getBlockByNumber(number) {
     let message = new NumberMessage();
     message.setNum(number);
+    console.log('number==',message)
     return await this.api.getBlockByNum(message);
   }
     /**
@@ -71,6 +84,9 @@ class GrpcClient {
       let returnTransaction = await privateKeySigner.signTransaction(transaction);
       return await this.api.broadcastTransaction(returnTransaction.transaction);
   }
+
+
+
 }
 
 module.exports = GrpcClient;
