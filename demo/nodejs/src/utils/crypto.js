@@ -225,7 +225,7 @@ function ECKeySign(hashBytes, priKeyBytes) {
 
 //toDO:
 //return 32 bytes
-function SHA256(msSHA256gBytes) {
+function SHA256(msgBytes) {
   let shaObj = new jsSHA("SHA-256", "HEX");
   let msgHex = byteArray2hexStr(msgBytes);
   shaObj.update(msgHex);
@@ -256,22 +256,24 @@ function longToByteArray(long) {
 
     return byteArray;
 }
-// 对交易的RawData 取hash
+// getHash by transaction.rawData
 function getHashByRawData(transaction){
     let raw = transaction.getRawData();
-    console.log(raw)
-    // let rawBytes = raw.serializeBinary();
-    // let hashBytes = SHA256(rawBytes);
-    //
-    // return hashBytes
+    let rawBytes = raw.serializeBinary();
+    let hashBytes = SHA256(rawBytes);
+    let hash = byteArray2hexStr(hashBytes);
+    return hash
 }
-//计算block id
+//generate blockId by long blockNum and bytes[] blockHash
+
 function generateBlockId(blockNum,blockHash){
     let numBytes = longToByteArray(blockNum);
     numBytes.reverse();
-    let hashBytes = hexStr2byteArray(blockHash);
-    let generate_BlockId = [...numBytes.slice(0, 8), ...hashBytes.slice(8, hashBytes.length - 1)];
-    return generate_BlockId;
+    let hashBytes = blockHash;
+    //000000000001c7ea7bc1ab60b10fd204414dc31d4a0d3fb1bb68fbbf4e993325
+    let generate_BlockId = [...numBytes.slice(0, 8), ...hashBytes.slice(8, hashBytes.length)];
+    //console.log('generate_BlockId:',byteArray2hexStr(generate_BlockId));
+    return byteArray2hexStr(generate_BlockId);
 }
 
 
@@ -280,6 +282,7 @@ module.exports = {
   signTransaction,
   passwordToAddress,
   genPriKey,
+    SHA256,
   getAddressFromPriKey,
   getPubKeyFromPriKey,
   getBase58CheckAddress,
@@ -289,5 +292,6 @@ module.exports = {
   decode58Check,
   signBytes,
   getHashByRawData,
-  generateBlockId
+  generateBlockId,
+  hexStr2byteArray
 };
