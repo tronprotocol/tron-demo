@@ -7,8 +7,8 @@ const {getHashByRawData,generateBlockId,SHA256} = require("./src/utils/crypto.js
 app.get('/', function (req, res) {
     //getNodes();
     //transferAccount();
-    getBlockByNumber(116714)
-    //GetTransactionInfoById('9581e0f3a3a5adbf9493d405ee0dfb188745204d5c8b1cd62d18e31e781461a3')
+    //getBlockByNumber(116714)
+    GetTransactionInfoById('9581e0f3a3a5adbf9493d405ee0dfb188745204d5c8b1cd62d18e31e781461a3')
     res.send('Grpc api test!');
 });
 

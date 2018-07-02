@@ -46,9 +46,7 @@ class GrpcClient {
      */
     async GetTransactionInfoById(id) {
         let message = new BytesMessage();
-
         message.setValue(Uint8Array.from(hexStr2byteArray(id)))
-
         return await this.api.getTransactionById(message);
     }
   /**
