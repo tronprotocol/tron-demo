@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Tron Wallet",
+  "description": "Tron Wallet for Chrome, made by Jake Lin",
+  "version": "1.7.0",
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Open the popup"
+  },
+  "icons": {
+    "16": "tron.png",
+    "48": "tron.png",
+    "128": "tron.png"
+  },
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+ "background": {
+  "persistent": false,
+    "scripts": [
+      "background.js"
+    ]
+  },
+   "content_scripts": [
+    {
+    "matches" : ["<all_urls>"],
+    "js": ["content.js"]
+ 
+    }
+  ],
+   "permissions": ["tabs"]
+}

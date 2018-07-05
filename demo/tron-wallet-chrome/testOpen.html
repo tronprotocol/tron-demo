@@ -1,0 +1,41 @@
+<html>
+<head>
+<script>
+function openWallet(){
+  var installNode = document.getElementById("my-chrome-extension-installed");
+  if (installNode) {
+    console.log('Chrome extension is installed!');
+    var open_wallet = document.createEvent('Event');
+    open_wallet.initEvent('open_wallet', true, true);
+    installNode.innerText='Open Wallet';
+
+    installNode.dispatchEvent(open_wallet);
+  } 
+  else {
+    console.log('Chrome extention is not installed yet...');
+  }
+}
+function deployContract(){
+  var installNode = document.getElementById("my-chrome-extension-installed");
+  if (installNode) {
+    console.log('Chrome extension is installed!');
+    var deploy_contract = document.createEvent('Event');
+    deploy_contract.initEvent('deploy_contract', true, true);
+    installNode.innerText='Deploy Contract';
+
+    installNode.dispatchEvent(deploy_contract);
+  } 
+  else {
+    console.log('Chrome extention is not installed yet...');
+  }
+}
+
+
+</script>
+</head>
+<body>
+<button onclick="openWallet()">Open Wallet</button>
+<button onclick="deployContract()">Deploy Contract</button>
+
+</body>
+</html>
