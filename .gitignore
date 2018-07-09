@@ -1,3 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 /demo/tron-wallet-chrome/node_modules/
+/demo/tron-sign-tools/.gradle/
+.DS_Store
+demo/.DS_Store
+demo/tron-sign-tools/build/
+demo/tron-sign-tools/logs/
+demo/tron-sign-tools/out/
+
+
