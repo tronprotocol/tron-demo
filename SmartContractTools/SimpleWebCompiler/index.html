@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tron Compile tool</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        .result{
+            display: flex;
+            width:100%;
+            margin-top:10px;
+        }
+        .result >div{
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            flex:1;
+            height:400px;
+            padding:20px;
+            width:50%;
+            border:1px solid #ccc;
+        }
+        .byte,.abi{
+            border:1px solid #ccc;
+            width:100%;
+            height:90%;
+            word-wrap: break-word;
+            overflow-y: scroll
+        }
+        #btn{
+            width:100px;
+            padding:10px;
+            font-size:20px;
+            font-weight: bold;
+        }
+    </style>
+    <script src="jquery.js"></script>
+    <script src="app.js"></script>
+    <script>
+        window.onload=function(){
+            //now
+            var oInput = document.getElementById('input');
+
+            var oBtnCompile = document.getElementById('compile')
+
+            var oByteCodeBox = document.getElementById('byte')
+
+            var oAbiBox = document.getElementById('abi')
+
+            oBtnCompile.onclick = function () {
+                var inputValue = oInput.value;
+                if(!$.trim(inputValue)){
+                    alert('solidity code is empty!');
+                    return;
+                }
+                BrowserSolc.loadSolcJson('./soljson_v1.0.js',function (compiler) {
+                    source = inputValue;
+                    optimize = 1;
+                    result = compiler.compile(source, optimize);
+                    var bytecode = '';
+                    var abi = ''
+                    for(var name in result.contracts){
+                        if(result.contracts[name].bytecode){
+                            bytecode = result.contracts[name].bytecode;
+                            var metadata = JSON.parse(result.contracts[name].metadata);
+                            abi = JSON.stringify(metadata.output.abi);
+                        }
+                    }
+                    $('#byte').html(bytecode);
+                    $('#abi').html(abi);
+
+                })
+            }
+            
+        }
+    </script>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div class="box">
+        <p>
+            <label>please input solidity code:</label>
+        </p>
+        <textarea name="" id="input" style="width:100%;height:300px;">
+
+
+        </textarea>
+        <p style="text-align: center">
+            <input type="button" id="compile" value="Compile">
+        </p>
+        <div class="result">
+            <div class="result-byteCode">
+                <p>byteCode</p>
+                <p class="byte" id="byte">
+
+                </p>
+
+            </div>
+            <div class="result-abi">
+                <p>abi</p>
+                <p class="abi" id="abi">
+
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
