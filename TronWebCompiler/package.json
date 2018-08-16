@@ -1,0 +1,30 @@
+{
+  "name": "tronwebcompiler",
+  "version": "1.0.0",
+  "description": "Describe tronwebcompiler here",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "es",
+    "lib",
+    "umd"
+  ],
+  "scripts": {
+    "build": "nwb build-web-module",
+    "clean": "nwb clean-module",
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
+  },
+  "dependencies": {
+    "browser-solc-tron": "^1.0.5",
+    "es6-shim": "^0.35.3"
+  },
+  "devDependencies": {
+    "nwb": "0.21.x"
+  },
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "repository": ""
+}
