@@ -8,6 +8,7 @@
             margin:0;
             padding:0;
         }
+
         html,body{
             width:100%;
             height:100%;
@@ -67,9 +68,16 @@
                     source = inputValue;
                     optimize = 1;
                     result = compiler.compile(source, optimize);
+                    if(result.errors){
+                        if(result.errors.length>0){
+                            console.error(result.errors);
+                        }
+                    }
+
                     var bytecode = '';
                     var abi = ''
-                    console.log(result.contracts);
+
+                     console.log(result)
                     for(var name in result.contracts){
                         arrContract.push(name);
                         if(result.contracts[name].bytecode){

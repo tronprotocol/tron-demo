@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 /demo/tron-wallet-chrome/node_modules/
+/TronWebCompiler/node_modules/
