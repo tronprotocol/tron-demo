@@ -64,9 +64,9 @@
                 var arrContract = [];
                 var arrByteCode = [];
                 var arrAbi = [];
-                BrowserSolc.loadSolcJson('./soljson_v1.0.js',function (compiler) {
+                BrowserSolc.loadSolcJson('./soljson_v2.0.js',function (compiler) {
                     source = inputValue;
-                    optimize = 1;
+                    optimize = 0;
                     result = compiler.compile(source, optimize);
                     if(result.errors){
                         if(result.errors.length>0){
@@ -80,13 +80,18 @@
                      console.log(result)
                     for(var name in result.contracts){
                         arrContract.push(name);
-                        if(result.contracts[name].bytecode){
-                            bytecode = result.contracts[name].bytecode;
-                            arrByteCode.push(bytecode);
-                            var metadata = JSON.parse(result.contracts[name].metadata);
-                            abi = JSON.stringify(metadata.output.abi);
+                        bytecode = result.contracts[name].bytecode;
+                        bytecode = (bytecode)? bytecode: "";
+                        arrByteCode.push(bytecode);
+
+                        if (result.contracts[name].interface){
+                            var abi = JSON.parse(result.contracts[name].interface);
+                            abi = JSON.stringify(abi);
                             arrAbi.push(abi);
+                        }else{
+                            arrAbi.push("");
                         }
+                        
                     }
                     renderContractSelect(arrContract);
                     initAbiAndByteCode(arrByteCode,arrAbi);
