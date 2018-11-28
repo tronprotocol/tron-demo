@@ -66,7 +66,7 @@
                 var arrAbi = [];
                 BrowserSolc.loadSolcJson('./soljson_v2.0.js',function (compiler) {
                     source = inputValue;
-                    optimize = 0;
+                    optimize = 1;
                     result = compiler.compile(source, optimize);
                     if(result.errors){
                         if(result.errors.length>0){
